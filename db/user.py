@@ -1,40 +1,54 @@
 
+import sqlite3
 from tinydb import TinyDB, where
+
+# Check if account exists
+def account_exists(username):
+
+    # Connection and cursor
+    conn = sqlite3.connect('swipeat.db')
+    c = conn.cursor()
+
+    # Query
+    c.execute('''SELECT * FROM swipeat_accounts WHERE username like \'''' + username + "'")
+    all_rows = c.fetchall()
+
+    # Check if exists
+    if len(all_rows) == 0:
+        return False
+    else:
+        return True
 
 # Create an account
 def create_account(username, password):
 
-    # TinyDB
-    db = TinyDB('db.json')
+    # Connection and cursor
+    conn = sqlite3.connect('swipeat.db')
+    c = conn.cursor()
 
-    # Users table
-    users_table = db.table("users") 
-
-    # Check if the account already exists
-    if len(users_table.search(username == username)) != 0:
-        return False, "User already exists"
-
-    # Insert account
-    users_table.insert({'username' : username, 'password' : password})
-
-    return True, "Account created"
+    # If account exists => exit
+    if account_exists(username):
+        return False, "Account already exists"
+    else:
+        c.execute('''INSERT INTO swipeat_accounts(username, password) VALUES(:username,:password)''', {'username' : username, 'password' : password})
+        conn.commit()
+        return True, "Account created"
 
 # Check login and password
 def check_login(username, password):
 
-    # TinyDB
-    db = TinyDB('/path/to/db.json')
+    # Connection and cursor
+    conn = sqlite3.connect('swipeat.db')
+    c = conn.cursor()
 
-    # Users table
-    users_table = db.table("users") 
-
-    # Get username's informations
-    account_info = users_table.search(username == username)
-
-    # Check if we found insert
-    if len(account_info) < 1:
-        return False, "Unknown username"
+    # No account?
+    if not account_exists(username):
+        return False, "Username does not exists"
     else:
-        if account_info[0]["password"] != password:
-            return False, "Incorrect password"
-    return True, "Login success"
+        # Get info
+        c.execute('''SELECT * FROM swipeat_accounts WHERE username like \'''' + username + "'")
+        row = c.fetchone()
+        if row[1] == password:
+            return True, "Login succeeded"
+        else:
+            return False, "Wrong password"
