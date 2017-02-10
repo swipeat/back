@@ -1,6 +1,11 @@
 
 import sqlite3
-from tinydb import TinyDB, where
+
+def create_table():
+    conn = sqlite3.connect('swipeat.db')
+    c = conn.cursor()
+    c.execute("CREATE TABLE swipeat_accounts (username text, password text)")
+    conn.commit()
 
 # Check if account exists
 def account_exists(username):
@@ -9,9 +14,15 @@ def account_exists(username):
     conn = sqlite3.connect('swipeat.db')
     c = conn.cursor()
 
-    # Query
-    c.execute('''SELECT * FROM swipeat_accounts WHERE username like \'''' + username + "'")
-    all_rows = c.fetchall()
+    try:
+        # Query
+        c.execute('''SELECT * FROM swipeat_accounts WHERE username like \'''' + username + "'")
+        all_rows = c.fetchall()
+    except:
+        # missing database?
+        create_table()
+        c.execute('''SELECT * FROM swipeat_accounts WHERE username like \'''' + username + "'")
+        all_rows = c.fetchall()
 
     # Check if exists
     if len(all_rows) == 0:

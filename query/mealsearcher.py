@@ -13,6 +13,8 @@ class MealSearcher(six.with_metaclass(abc.ABCMeta, object)):
     """
     def __init__(self, queryrequest):
         self.queryrequest = str(queryrequest)
+        self.title = None
+        self.image_url = None
 
     @abc.abstractmethod
     def get_meals(self, number_of_meals=5):
