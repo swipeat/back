@@ -1,6 +1,5 @@
 
 import sqlite3
-from tinydb import TinyDB, where
 
 def create_table():
     conn = sqlite3.connect('swipeat.db')

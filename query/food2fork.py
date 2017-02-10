@@ -39,17 +39,21 @@ class Food2forkMeal(MealSearcher):
         self.ingredients_list = {}
 
     def get_meals(self, number_of_meals=5):
+        if not self.original_meals_json:
+            self.original_meals_json = self.query_api(self.url, self.mealquery, HEADER)
         meals_limit = min(self.original_meals_json[u'count'], number_of_meals)
         processed_json = {}
-        for i, meal in zip(meals_limit, self.original_meals_json[u'recipes']):
+        print ("meals_limit:", meals_limit)
+        for meal in self.original_meals_json[u'recipes']:
             processed_json[meal[u'recipe_id']] = {'title': meal[u'title'], 'image_url': meal[u'image_url']}
-            print ("processing %d recipe: %s" % (i, str(processed_json[meal[u'recipe_id']])))
+            # print ("processing recipe: %s" % str(processed_json[meal[u'recipe_id']]))
 
         self.current_processed_json = json.dumps(processed_json)
         return self.current_processed_json
 
     def query_api(self, url, queryrequest, headers):
-        return requests.get(url, params=queryrequest, headers=headers)
+        r = requests.get(url, params=queryrequest, headers=headers)
+        return r.json()
 
     # def current_meals_ingredients(self):
     #     ingredients_list = {}
@@ -100,4 +104,5 @@ class Food2forkIngredients(IngredientSearcher):
         return json.dumps({"ingredients": self.ingredients_list})
 
     def query_api(self, url, queryrequest, headers):
-        return requests.get(url, params=queryrequest, headers=headers)
+        r = requests.get(url, params=queryrequest, headers=headers)
+        return r.json()

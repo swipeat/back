@@ -12,19 +12,15 @@ class Meals(object):
     """
     General class to mealquery meals from either recipes databases, APIs, or cached recipes.
     """
-    def __init__(self,
-                 query_object
-                 ):
+    def __init__(self):
         self.query_object = None
-        if query_object is not None:
-            self.set_query_object(query_object)
 
     def set_query_object(self, query_object):
         """
         :param query_object: set the current MealSearcher that searchers for meals
         """
-        assert (query_object is None)
-        assert isinstance(self.query_object, MealSearcher)
+        assert (query_object is not None)
+        assert isinstance(query_object, MealSearcher)
         self.query_object = query_object
 
     def get_query_object(self):

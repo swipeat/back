@@ -38,5 +38,6 @@ class OpenFood(IngredientSearcher):
         return self.results_json
 
     def query_api(self, url, queryrequest, headers):
-        return requests.get(url, params=queryrequest, headers=headers)
+        r = requests.get(url, params=queryrequest, headers=headers)
+        return r.json()
 

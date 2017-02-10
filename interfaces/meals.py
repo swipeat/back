@@ -27,9 +27,10 @@ def get_meals():
     # create meal object for the specific API querying
     foodobject = Food2forkMeal(constraints)
     # static wrapper for meal objects
-    meals = Meals(foodobject)
+    meals_selector = Meals.instance()
+    meals_selector.set_query_object(foodobject)
     # get the meals given the number
-    returned_meals = meals.get_meals(number_of_meals)
+    returned_meals = meals_selector.get_meals(number_of_meals)
     if returned_meals:
         return json.dumps({"response": 0, "message": "OK", "results": returned_meals})
     else:
