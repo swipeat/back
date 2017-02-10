@@ -3,14 +3,14 @@
 # @author: Pavel Korshunov <pavelkor@gmail.com>
 # @date: Fri 10 Feb 18:43:22 2017
 
-from .ingredientsearcher import IngredientSearcher
+from query.ingredientsearcher import IngredientSearcher
 from .singleton import *
 
 
 @Singleton
 class Ingredients(object):
     """
-    General class to query ingredients from either ingredients databases, APIs, or cached ingredients.
+    General class to mealquery ingredients from either ingredients databases, APIs, or cached ingredients.
     """
     def __init__(self,
                  query_object

@@ -5,7 +5,7 @@
 
 
 import requests
-from .ingredientsearcher import IngredientSearcher
+from query.ingredientsearcher import IngredientSearcher
 
 BASE_URL = 'https://www.openfood.ch/api/v2'
 # API KEY can be obtained by registering at food2fork.com
@@ -16,15 +16,15 @@ class OpenFood(IngredientSearcher):
     """
     Implementation of MealSearcher interface for food2fork.com recipe API
     """
-    def __init__(self, queryrequest):
+    def __init__(self, model_ids):
 
-        super(OpenFood, self).__init__(queryrequest)
+        super(OpenFood, self).__init__(model_ids)
 
         self.url = BASE_URL + '/products'
 
         self.query = {
             "key": API_KEY,
-            "q": "{}".format(queryrequest)
+            "q": "{}".format(model_ids)
         }
 
         self.headers = {

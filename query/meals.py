@@ -3,14 +3,14 @@
 # @author: Pavel Korshunov <pavelkor@gmail.com>
 # @date: Fri 10 Feb 18:43:22 2017
 
-from .mealsearcher import MealSearcher
+from query.mealsearcher import MealSearcher
 from .singleton import *
 
 
 @Singleton
 class Meals(object):
     """
-    General class to query meals from either recipes databases, APIs, or cached recipes.
+    General class to mealquery meals from either recipes databases, APIs, or cached recipes.
     """
     def __init__(self,
                  query_object
