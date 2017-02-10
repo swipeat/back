@@ -19,13 +19,14 @@ def login():
     password = request.authorization["password"]
 
     # Do some check in the database
-    if True:
+    cond, msg = user.check_login(login, password)
+    if cond:
         # Set username/password in the response
         session["username"] = login
         session["password"] = password
 
         # Send ok response with cookie
-        return json.dumps({"response" : 0})
+        return json.dumps({"response" : 0, "message" : msg})
     else:
         # Sorry man
         return json.dumps({"reponse" : -1, "error" : "Wrong username or password"}, sort_keys=True)
