@@ -39,19 +39,36 @@ class Food2forkMeal(MealSearcher):
         self.ingredients_list = {}
 
     def get_meals(self, number_of_meals=5):
+        """
+        Query DB API and return list of meals
+        :param number_of_meals: how many meals to return
+        :return: JSON of meals with their Ids, titles, and image_urls
+        """
+        # check if we already queried API or not
         if not self.original_meals_json:
             self.original_meals_json = self.query_api(self.url, self.mealquery, HEADER)
-        meals_limit = min(self.original_meals_json[u'count'], number_of_meals)
+        # return smallest feasible number of meals
+        meals_limit = min(int(self.original_meals_json[u'count']), int(number_of_meals))
         processed_json = {}
-        print ("meals_limit:", meals_limit)
+        i = 0
         for meal in self.original_meals_json[u'recipes']:
+            if i >= meals_limit:
+                break
+            # keep only meal ID, title, and image url
             processed_json[meal[u'recipe_id']] = {'title': meal[u'title'], 'image_url': meal[u'image_url']}
-            # print ("processing recipe: %s" % str(processed_json[meal[u'recipe_id']]))
+            i += 1
 
         self.current_processed_json = json.dumps(processed_json)
         return self.current_processed_json
 
     def query_api(self, url, queryrequest, headers):
+        """
+        Query the food2fork DB API
+        :param url:
+        :param queryrequest:
+        :param headers:
+        :return:
+        """
         r = requests.get(url, params=queryrequest, headers=headers)
         return r.json()
 
@@ -80,7 +97,7 @@ class Food2forkIngredients(IngredientSearcher):
 
         super(Food2forkIngredients, self).__init__(meal_ids)
 
-        self.url = BASE_URL + '/search'
+        self.url = BASE_URL + '/get'
         self.headers = {
             "X-Mashape-Key": "0hDYGmL5grmsh197WzPKPsg9ozTDp11YISzjsnDDV8aUUN0P81",
             "Accept": "application/json"
@@ -91,18 +108,28 @@ class Food2forkIngredients(IngredientSearcher):
         # if we did not initialized meal_ids, error out
         if not self.meal_ids:
             return None
-
+        assert isinstance(self.meal_ids, list)
         # do not query if the list already exists
         if self.ingredients_list:
             return self.ingredients_list
 
         self.ingredients_list = []
+        print ("self.meal_ids", self.meal_ids)
         for meal_id in self.meal_ids:
             meal = self.query_api(self.url, {"key": API_KEY, "rId": "{}".format(meal_id)}, HEADER)
-            self.ingredients_list.extend(meal["ingredients"])
+            print (meal)
+            self.ingredients_list.extend(meal[u'recipe'][u'ingredients'])
 
         return json.dumps({"ingredients": self.ingredients_list})
 
     def query_api(self, url, queryrequest, headers):
+        """
+        Query food2fork DB API for ingredients
+        :param url:
+        :param queryrequest:
+        :param headers:
+        :return:
+        """
+        print (url, queryrequest)
         r = requests.get(url, params=queryrequest, headers=headers)
         return r.json()

@@ -12,19 +12,15 @@ class Ingredients(object):
     """
     General class to mealquery ingredients from either ingredients databases, APIs, or cached ingredients.
     """
-    def __init__(self,
-                 query_object
-                 ):
+    def __init__(self):
         self.query_object = None
-        if query_object is not None:
-            self.set_query_object(query_object)
 
     def set_query_object(self, query_object):
         """
         :param query_object: set the current IngredientSearcher that searchers for ingredients
         """
-        assert (query_object is None)
-        assert isinstance(self.query_object, IngredientSearcher)
+        assert (query_object is not None)
+        assert isinstance(query_object, IngredientSearcher)
         self.query_object = query_object
 
     def get_query_object(self):
