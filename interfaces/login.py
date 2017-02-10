@@ -5,4 +5,45 @@
 from db import user
 from interfaces import app
 import json
+from flask import request
+from flask import make_response
+from flask import session
 
+# /login : Login to user's account
+@app.route("/login", methods=["POST"])
+def login():
+    """ Login to user's account """
+
+    # Get login and password
+    login = request.authorization["username"]
+    password = request.authorization["password"]
+
+    # Do some check in the database
+    if True:
+        # Set username/password in the response
+        session["username"] = login
+        session["password"] = password
+
+        # Send ok response with cookie
+        return json.dumps({"response" : 0})
+    else:
+        # Sorry man
+        return json.dumps({"reponse" : -1, "error" : "Wrong username or password"}, sort_keys=True)
+
+# /login/signup : Create an account
+@app.route("/login/signup", methods=["POST"])
+def signup():
+    """ Create a new account """
+
+    # Get new username and password
+    username = request.form["username"]
+    password = request.form["password"]
+
+    # Try to create account
+    resp, msg = user.create_account(username, password)
+
+    # Create the account
+    if resp:
+        return json.dumps({"response" : 0, "message" : msg})
+    else:
+        return json.dumps({"response" : -1, "message" : msg})
