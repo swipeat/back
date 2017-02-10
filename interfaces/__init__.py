@@ -9,3 +9,6 @@ app.debug = True
 
 # Import interfaces
 import interfaces.list
+import interfaces.recipe
+import interfaces.login
+import interfaces.meals
