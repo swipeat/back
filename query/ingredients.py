@@ -8,7 +8,7 @@ from .singleton import *
 
 
 @Singleton
-class Ingredient(object):
+class Ingredients(object):
     """
     General class to query ingredients from either ingredients databases, APIs, or cached ingredients.
     """

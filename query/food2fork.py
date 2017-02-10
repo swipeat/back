@@ -12,13 +12,13 @@ BASE_URL = 'https://community-food2fork.p.mashape.com'
 API_KEY = 'b8b3e86ad3ee196ec2aff15d6a05579f'
 
 
-class OpenFood(MealSearcher):
+class Food2fork(MealSearcher):
     """
     Implementation of MealSearcher interface for food2fork.com recipe API
     """
     def __init__(self, queryrequest):
 
-        super(OpenFood, self).__init__(queryrequest)
+        super(Food2fork, self).__init__(queryrequest)
 
         self.url = BASE_URL + '/search'
 
