@@ -120,7 +120,8 @@ class Food2forkIngredients(IngredientSearcher):
             print (dish)
             self.ingredients_list.extend(dish[u'recipe'][u'ingredients'])
 
-        return json.dumps({"ingredients": self.ingredients_list})
+        return {"ingredients": self.ingredients_list}
+        #return json.dumps({"ingredients": self.ingredients_list})
 
     def query_api(self, url, queryrequest, headers):
         """
