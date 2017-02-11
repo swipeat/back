@@ -15,8 +15,12 @@ def login():
     """ Login to user's account """
 
     # Get login and password
-    login = request.authorization["username"]
-    password = request.authorization["password"]
+    # login = request.authorization["username"]
+    # password = request.authorization["password"]
+
+    # temp hack to make demo faster
+    login = "user"
+    password = "user"
 
     # Do some check in the database
     cond, msg = user.check_login(login, password)
@@ -37,8 +41,12 @@ def signup():
     """ Create a new account """
 
     # Get new username and password
-    username = request.form["username"]
-    password = request.form["password"]
+    # username = request.form["username"]
+    # password = request.form["password"]
+
+    # temp hack to make demo faster
+    username = "user"
+    password = "user"
 
     # Try to create account
     resp, msg = user.create_account(username, password)

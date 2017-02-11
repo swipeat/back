@@ -19,13 +19,16 @@ def get_ingredients():
     """
 
     # # Session informations
-    username = session["username"]
-    password = session["password"]
+    # username = session["username"]
+    # password = session["password"]
+    #
+    # # Check login
+    # cond, msg = user.check_login(username, password)
+    # if not cond:
+    #     return json.dumps({"response": -1, "message": msg})
 
-    # Check login
-    cond, msg = user.check_login(username, password)
-    if not cond:
-        return json.dumps({"response": -1, "message": msg})
+    # temp hack to make demo faster
+    username = "user"
 
     # Get the the dish Ids that were selected by user from the request
     dish_ids = request.args.get("dishesids").split(",")

@@ -21,13 +21,16 @@ def get_user_list():
     """
 
     # Session informations
-    username = session["username"]
-    password = session["password"]
+    # username = session["username"]
+    # password = session["password"]
+    #
+    # # Check login
+    # cond, msg = user.check_login(username, password)
+    # if not cond:
+    #     return json.dumps({"response": -1, "message": msg})
 
-    # Check login
-    cond, msg = user.check_login(username, password)
-    if not cond:
-        return json.dumps({"response": -1, "message": msg})
+    # temp hack to make demo faster
+    username = "user"
 
     # Get data
     rows = list.get_list(username)
@@ -48,13 +51,16 @@ def remove_ingredient():
     """
 
     # Session informations
-    username = session["username"]
-    password = session["password"]
+    # username = session["username"]
+    # password = session["password"]
+    #
+    # # Check login
+    # cond, msg = user.check_login(username, password)
+    # if not cond:
+    #     return json.dumps({"response": -1, "message": msg})
 
-    # Check login
-    cond, msg = user.check_login(username, password)
-    if not cond:
-        return json.dumps({"response": -1, "message": msg})
+    # temp hack to make demo faster
+    username = "user"
 
     # Parameters
     ingredient = request.form["ingredient"]
@@ -74,13 +80,16 @@ def purge_user_list():
     """
 
     # Session informations
-    username = session["username"]
-    password = session["password"]
+    # username = session["username"]
+    # password = session["password"]
+    #
+    # # Check login
+    # cond, msg = user.check_login(username, password)
+    # if not cond:
+    #     return json.dumps({"response": -1, "message": msg})
 
-    # Check login
-    cond, msg = user.check_login(username, password)
-    if not cond:
-        return json.dumps({"response": -1, "message": msg})
+    # temp hack to make demo faster
+    username = "user"
 
     # Remove
     list.purge_list(username)
@@ -96,13 +105,16 @@ def add_ingredient():
     """
 
     # Session informations
-    username = session["username"]
-    password = session["password"]
+    # username = session["username"]
+    # password = session["password"]
+    #
+    # # Check login
+    # cond, msg = user.check_login(username, password)
+    # if not cond:
+    #     return json.dumps({"response": -1, "message": msg})
 
-    # Check login
-    cond, msg = user.check_login(username, password)
-    if not cond:
-        return json.dumps({"response": -1, "message": msg})
+    # temp hack to make demo faster
+    username = "user"
 
     # Parameters
     ingredient = request.form["ingredient"]
@@ -120,14 +132,18 @@ def add_recipe():
     :return: A JSON list of ingredients added.
     """
 
-    # # Session informations
-    username = session["username"]
-    password = session["password"]
+    # # # Session informations
+    # username = session["username"]
+    # password = session["password"]
+    #
+    # # Check login
+    # cond, msg = user.check_login(username, password)
+    # if not cond:
+    #     return json.dumps({"response": -1, "message": msg})
 
-    # Check login
-    cond, msg = user.check_login(username, password)
-    if not cond:
-        return json.dumps({"response": -1, "message": msg})
+    # temp hack to make demo faster
+    username = "user"
+    # password = "user"
 
     # Get the the dish Ids that were selected by user from the POST request
     # dish_ids = request.form["dishesids"].split(",")

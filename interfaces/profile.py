@@ -16,13 +16,16 @@ def rate_ingredient():
         Rate an ingredient in the user's profile """
     
     # Session informations
-    username = session["username"]
-    password = session["password"]
+    # username = session["username"]
+    # password = session["password"]
+    #
+    # # Check login
+    # cond, msg = user.check_login(username, password)
+    # if not cond:
+    #     return json.dumps({"response" : -1, "message" : msg})
 
-    # Check login
-    cond, msg = user.check_login(username, password)
-    if not cond:
-        return json.dumps({"response" : -1, "message" : msg})
+    # temp hack to make demo faster
+    username = "user"
 
     # Get ingredient's name and rating
     ingredient = request.form["ingredient"]
@@ -53,13 +56,16 @@ def get_profile():
         Get the user's profile. """
 
     # Session informations
-    username = session["username"]
-    password = session["password"]
-    #print "Username : ", username
-    # Check login
-    cond, msg = user.check_login(username, password)
-    if not cond:
-        return json.dumps({"response": -1, "message": msg})
+    # username = session["username"]
+    # password = session["password"]
+    # #print "Username : ", username
+    # # Check login
+    # cond, msg = user.check_login(username, password)
+    # if not cond:
+    #     return json.dumps({"response": -1, "message": msg})
+
+    # temp hack to make demo faster
+    username = "user"
 
     # Get all the ingredient rating
     rates = profile.get_user_profile(username)
