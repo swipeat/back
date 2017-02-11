@@ -113,10 +113,10 @@ def add_ingredient():
     return json.dumps({"response": 0, "message": "OK"})
 
 # /list/add_recipe : Add all ingredients of a recipe to the user's list
-@app.route("/list/add_recipe", methods=["POST"])
+@app.route("/list/add_recipes", methods=["POST"])
 def add_recipe():
     """
-    Add all ingredients of a recipe to the user's list.
+    Add all ingredients of recipes to the user's list.
     :return: A JSON list of ingredients added.
     """
 
