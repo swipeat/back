@@ -1,5 +1,13 @@
 import sqlite3
 
+def init():
+    conn = sqlite3.connect('swipeat.db')
+    c = conn.cursor()
+    c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='swipeat_profiles'")
+    if len(c.fetchall()) == 0:
+        c.execute("CREATE TABLE swipeat_profiles (username text, ingredient text, note integer)")
+        conn.commit()
+
 # Is ingredient rated?
 def is_rated(username, ingredient):
 

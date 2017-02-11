@@ -55,7 +55,7 @@ def get_profile():
     # Session informations
     username = session["username"]
     password = session["password"]
-    print "Username : ", username
+    #print "Username : ", username
     # Check login
     cond, msg = user.check_login(username, password)
     if not cond:
