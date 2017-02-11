@@ -11,4 +11,4 @@ app.debug = True
 import interfaces.list
 import interfaces.recipe
 import interfaces.login
-import interfaces.meals
+import interfaces.dishess

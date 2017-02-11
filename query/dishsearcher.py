@@ -7,7 +7,7 @@ import abc
 import six
 
 
-class MealSearcher(six.with_metaclass(abc.ABCMeta, object)):
+class DishSearcher(six.with_metaclass(abc.ABCMeta, object)):
     """
     General class that provides API for querying recipes databases, APIs, or cached recipes.
     """
@@ -17,9 +17,9 @@ class MealSearcher(six.with_metaclass(abc.ABCMeta, object)):
         self.image_url = None
 
     @abc.abstractmethod
-    def get_meals(self, number_of_meals=5):
+    def get_dishes(self, number_of_dishes=5):
         """
-        :param number_of_meals: how many meals from the underlying API to return
-        :return: Returns JSON description of meals
+        :param number_of_dishes: how many dishes from the underlying API to return
+        :return: Returns JSON description of dishes
         """
         raise NotImplementedError("Please implement this function in derived classes")

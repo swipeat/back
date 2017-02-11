@@ -10,7 +10,7 @@ from .singleton import *
 @Singleton
 class Ingredients(object):
     """
-    General class to mealquery ingredients from either ingredients databases, APIs, or cached ingredients.
+    General class to dishquery ingredients from either ingredients databases, APIs, or cached ingredients.
     """
     def __init__(self):
         self.query_object = None

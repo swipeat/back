@@ -11,8 +11,8 @@ class IngredientSearcher(six.with_metaclass(abc.ABCMeta, object)):
     """
     General class that provides API for querying ingredients databases, APIs, or cached ingredients.
     """
-    def __init__(self, meal_ids):
-        self.meal_ids = list(meal_ids)
+    def __init__(self, dish_ids):
+        self.dish_ids = list(dish_ids)
 
     @abc.abstractmethod
     def get_ingredients(self):

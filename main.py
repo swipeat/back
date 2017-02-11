@@ -5,13 +5,13 @@
 
 # Imports all interfaces
 from interfaces import app
-from query import Meals
+from query import Dishes
 from query import Ingredients
 
 # Launch the REST server
 if __name__ == "__main__":
     # init static wrappers
-    Meals.create()
+    Dishes.create()
     Ingredients.create()
 
     """ Launch the REST server """
