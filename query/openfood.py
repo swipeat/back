@@ -14,7 +14,7 @@ API_KEY = '1300cae7207c777103ac9e6e30035c8e'
 
 class OpenFood(IngredientSearcher):
     """
-    Implementation of MealSearcher interface for food2fork.com recipe API
+    Implementation of DishSearcher interface for food2fork.com recipe API
     """
     def __init__(self, model_ids):
 
