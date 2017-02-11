@@ -11,10 +11,8 @@ class DishSearcher(six.with_metaclass(abc.ABCMeta, object)):
     """
     General class that provides API for querying recipes databases, APIs, or cached recipes.
     """
-    def __init__(self, queryrequest):
-        self.queryrequest = str(queryrequest)
-        self.title = None
-        self.image_url = None
+    def __init__(self, constraints):
+        self.constraints = list(constraints)
 
     @abc.abstractmethod
     def get_dishes(self, number_of_dishes=5):

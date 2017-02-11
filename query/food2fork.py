@@ -3,8 +3,10 @@
 # @author: Pavel Korshunov <pavelkor@gmail.com>
 # @date: Fri 10 Feb 18:43:22 2017
 
-import json
 import requests
+import random
+from datetime import datetime
+
 from query.dishsearcher import DishSearcher
 from query.ingredientsearcher import IngredientSearcher
 
@@ -22,21 +24,23 @@ class Food2forkDish(DishSearcher):
     """
     Implementation of DishSearcher interface for food2fork.com recipe API
     """
-    def __init__(self, queryrequest):
+    def __init__(self, constraints):
 
-        super(Food2forkDish, self).__init__(queryrequest)
+        super(Food2forkDish, self).__init__(constraints)
 
         self.url = BASE_URL + '/search'
+        self.dishquery = {}
 
-        self.dishquery = {
-            "key": API_KEY,
-            "q": "{}".format(queryrequest)
-        }
+        self.original_dishes_list = []
+        self.total_number_dishes = 0
+        # initialize dishes and count how many we have
+        self.initial_query(pages=2)
 
-        self.original_dishes_json = self.query_api(self.url, self.dishquery, HEADER)
         self.current_processed_json = {}
-
         self.ingredients_list = {}
+
+        # set initial seed of random generator
+        random.seed(datetime.now())
 
     def get_dishes(self, number_of_dishes=5):
         """
@@ -44,25 +48,47 @@ class Food2forkDish(DishSearcher):
         :param number_of_dishes: how many dishes to return
         :return: JSON of dishes with their Ids, titles, and image_urls
         """
+        if not self.constraints:
+            return None
+
         # check if we already queried API or not
-        if not self.original_dishes_json:
-            self.original_dishes_json = self.query_api(self.url, self.dishquery, HEADER)
+        if not self.original_dishes_list:
+            self.initial_query()
+
         # return smallest feasible number of dishes
-        dishes_limit = min(int(self.original_dishes_json[u'count']), int(number_of_dishes))
-        #processed_json = {}
+        dishes_limit = min(self.total_number_dishes, int(number_of_dishes))
+        # print("self.total_number_dishes", self.total_number_dishes)
+        # print (dishes_limit)
+        self.randomize_dishes_list()
         processed_json = []
         i = 0
-        for dish in self.original_dishes_json[u'recipes']:
+        for dish in self.original_dishes_list:
             if i >= dishes_limit:
                 break
             # keep only dish ID, title, and image url
-            #processed_json[dish[u'recipe_id']] = {'title': dish[u'title'], 'image_url': dish[u'image_url']}
             processed_json += [{'recipe_id' : dish[u'recipe_id'], 'title': dish[u'title'], 'image_url': dish[u'image_url']}]
             i += 1
 
-        #self.current_processed_json = json.dumps(processed_json)
         self.current_processed_json = processed_json
         return self.current_processed_json
+
+    def initial_query(self, pages=1):
+        sets_dishes = {}
+        for constraint in self.constraints:
+            for page in range(1, pages + 1):
+                self.dishquery = {
+                    "key": API_KEY,
+                    "q": "{}".format(constraint),
+                    "page": str(page)
+                }
+                sets_dishes[constraint] = self.query_api(self.url, self.dishquery, HEADER)
+                self.total_number_dishes += int(sets_dishes[constraint][u'count'])
+                self.original_dishes_list.extend(sets_dishes[constraint][u'recipes'])
+
+    def randomize_dishes_list(self):
+        # indices = numpy.array(range(self.total_number_dishes))
+        # numpy.random.shuffle(indices)
+        random.shuffle(self.original_dishes_list)
 
     def query_api(self, url, queryrequest, headers):
         """
@@ -74,22 +100,6 @@ class Food2forkDish(DishSearcher):
         """
         r = requests.get(url, params=queryrequest, headers=headers)
         return r.json()
-
-    # def current_dishes_ingredients(self):
-    #     ingredients_list = {}
-    #     for dish_id, dish in self.current_processed_json.iteritems():
-    #         ingredients_list[dish_id] = Food2forkIngredients(dish_id)
-    #     self.ingredients_list = ingredients_list
-    #     return self.ingredients_list
-    #
-    # def current_ingredients_json(self):
-    #     if not self.ingredients_list:
-    #         self.ingredients_list = self.current_dishes_ingredients()
-    #     json_list = []
-    #     for dish_id, ingred_obj in self.ingredients_list.iteritems():
-    #         assert isinstance(ingred_obj, IngredientSearcher)
-    #         json_list.extend(ingred_obj.get_ingredients())
-    #     return json.dumps({"ingredients": json_list})
 
 
 class Food2forkIngredients(IngredientSearcher):
@@ -117,10 +127,10 @@ class Food2forkIngredients(IngredientSearcher):
             return self.ingredients_list
 
         self.ingredients_list = []
-        print ("self.dish_ids", self.dish_ids)
+        # print ("self.dish_ids", self.dish_ids)
         for dish_id in self.dish_ids:
             dish = self.query_api(self.url, {"key": API_KEY, "rId": "{}".format(dish_id)}, HEADER)
-            print (dish)
+            # print (dish)
             self.ingredients_list.extend(dish[u'recipe'][u'ingredients'])
 
         return {"ingredients": self.ingredients_list}
@@ -134,6 +144,6 @@ class Food2forkIngredients(IngredientSearcher):
         :param headers:
         :return:
         """
-        print (url, queryrequest)
+        # print (url, queryrequest)
         r = requests.get(url, params=queryrequest, headers=headers)
         return r.json()

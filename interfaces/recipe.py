@@ -7,28 +7,28 @@ import json
 from query import Ingredients
 from query import Food2forkIngredients
 from flask import request
-from flask import session
-from db import user
+# from flask import session
+# from db import user
 
-# Get the ingredients of a recipe
-@app.route("/recipe/get", methods=["POST"])
+# /recipe/info: # get the detailed info of a recipe
+@app.route("/recipe/info", methods=["GET"])
 def get_ingredients():
     """
-    Get the ingredient of a recipe
-    :return: A JSON string for the client
+    Get the detailed info of a recipe
+    :return: A JSON of the recipe
     """
 
-    # Session informations
-    username = session["username"]
-    password = session["password"]
+    # # Session informations
+    # username = session["username"]
+    # password = session["password"]
+    #
+    # # Check login
+    # cond, msg = user.check_login(username, password)
+    # if not cond:
+    #     return json.dumps({"response": -1, "message": msg})
 
-    # Check login
-    cond, msg = user.check_login(username, password)
-    if not cond:
-        return json.dumps({"response": -1, "message": msg})
-
-    # Get the the meal Ids that were selected by user from the POST request
-    meal_ids = request.form["mealsids"].split(",")
+    # Get the the meal Ids that were selected by user from the request
+    meal_ids = request.args.get("mealsids").split(",")
 
     # Create meal object for the specific API querying
     ingredientobject = Food2forkIngredients(meal_ids)
