@@ -9,7 +9,7 @@ from query import Food2forkMeal
 from flask import request
 
 # /recipe/list: to get the list of meals
-@app.route("/recipe/list", methods=["POST"])
+@app.route("/recipe/list", methods=["GET"])
 def get_meals():
     """
     Requires POST request with fields::
@@ -19,10 +19,11 @@ def get_meals():
 
     :return: JSON of meals. For each "meal_id" it has "title" and "image_url".
     """
+
     # Get the constraints from the POST request
-    constraints = request.form["constraints"]
+    constraints = request.args.get("constraints")
     # Get the number of meals
-    number_of_meals = request.form["nummeals"]
+    number_of_meals = request.args.get("nummeals")
 
     # create meal object for the specific API querying
     foodobject = Food2forkMeal(constraints)
