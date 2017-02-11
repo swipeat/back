@@ -55,7 +55,7 @@ def is_in_list(username, ingredient):
     c = conn.cursor()
 
     # Search for the ingredient
-    c.execute('''SELECT * FROM swipeat_lists WHERE username like \'''' + username + "\'")
+    c.execute('''SELECT * FROM swipeat_lists WHERE username like \'''' + username + '''\' AND ingredient LIKE \'''' + ingredient + "\'")
     rows = c.fetchall()
 
     # Check results

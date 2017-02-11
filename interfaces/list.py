@@ -144,7 +144,6 @@ def add_recipe():
 
     # If ok
     if returned_ingredients:
-        print returned_ingredients
         for ingredient in returned_ingredients["ingredients"]:
             # Add the ingredient
             list.add_ingredient(username, ingredient)

@@ -14,5 +14,5 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 import interfaces.list
 import interfaces.recipe
 import interfaces.login
-import interfaces.dishess
+#import interfaces.dishess
 import interfaces.profile
