@@ -49,13 +49,15 @@ class Food2forkDish(DishSearcher):
             self.original_dishes_json = self.query_api(self.url, self.dishquery, HEADER)
         # return smallest feasible number of dishes
         dishes_limit = min(int(self.original_dishes_json[u'count']), int(number_of_dishes))
-        processed_json = {}
+        #processed_json = {}
+        processed_json = []
         i = 0
         for dish in self.original_dishes_json[u'recipes']:
             if i >= dishes_limit:
                 break
             # keep only dish ID, title, and image url
-            processed_json[dish[u'recipe_id']] = {'title': dish[u'title'], 'image_url': dish[u'image_url']}
+            #processed_json[dish[u'recipe_id']] = {'title': dish[u'title'], 'image_url': dish[u'image_url']}
+            processed_json += [{'recipe_id' : dish[u'recipe_id'], 'title': dish[u'title'], 'image_url': dish[u'image_url']}]
             i += 1
 
         #self.current_processed_json = json.dumps(processed_json)
