@@ -3,7 +3,7 @@
 # @author: Pavel Korshunov <pavelkor@gmail.com>
 # @date: Fri 10 Feb 18:43:22 2017
 
-from query.dishsearcher import searcher import DishSearcher
+from query.dishsearcher import DishSearcher
 from .singleton import *
 
 

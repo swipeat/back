@@ -4,8 +4,8 @@
 
 from interfaces import app
 import json
-from query import Meals
-from query import Food2forkMeal
+from query import Dishes
+from query import Food2forkDish
 from flask import request
 
 # /recipe/list: to get the list of meals
@@ -26,12 +26,12 @@ def get_meals():
     number_of_meals = request.args.get("nummeals")
 
     # create meal object for the specific API querying
-    foodobject = Food2forkMeal(constraints)
+    foodobject = Food2forkDish(constraints)
     # static wrapper for meal objects
-    meals_selector = Meals.instance()
+    meals_selector = Dishes.instance()
     meals_selector.set_query_object(foodobject)
     # get the meals given the number
-    returned_meals = meals_selector.get_meals(number_of_meals)
+    returned_meals = meals_selector.get_dishes(number_of_meals)
     if returned_meals:
         return json.dumps({"response": 0, "message": "OK", "results": returned_meals})
     else:

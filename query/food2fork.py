@@ -58,7 +58,8 @@ class Food2forkDish(DishSearcher):
             processed_json[dish[u'recipe_id']] = {'title': dish[u'title'], 'image_url': dish[u'image_url']}
             i += 1
 
-        self.current_processed_json = json.dumps(processed_json)
+        #self.current_processed_json = json.dumps(processed_json)
+        self.current_processed_json = processed_json
         return self.current_processed_json
 
     def query_api(self, url, queryrequest, headers):

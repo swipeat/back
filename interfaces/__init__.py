@@ -16,3 +16,4 @@ import interfaces.recipe
 import interfaces.login
 #import interfaces.dishess
 import interfaces.profile
+import interfaces.meals
