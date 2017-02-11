@@ -1,0 +1,124 @@
+{
+	"id": "54d1404a-ccd3-b35c-1c35-325d3c4b47f6",
+	"name": "swipeat",
+	"description": "",
+	"order": [
+		"b1def67f-34e5-290f-0e89-350782f68afd",
+		"0574108d-68fa-26d3-a9ff-3bbe5fc2364f",
+		"bb3894b0-75eb-f1d0-0a5b-71fa3d09c13c",
+		"c8094428-8e39-b0c1-af46-5fbe2e9cec06"
+	],
+	"folders": [],
+	"timestamp": 1486759596032,
+	"owner": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "0574108d-68fa-26d3-a9ff-3bbe5fc2364f",
+			"headers": "",
+			"url": "https://sleepy-crag-97903.herokuapp.com/login/signup",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "54d1404a-ccd3-b35c-1c35-325d3c4b47f6",
+			"data": [
+				{
+					"key": "username",
+					"value": "me",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "password",
+					"value": "test",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				}
+			],
+			"dataMode": "params",
+			"name": "swipeat remote signup",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1486761878559,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "b1def67f-34e5-290f-0e89-350782f68afd",
+			"headers": "",
+			"url": "http://localhost:5000/login/signup",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "username",
+					"value": "me",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				},
+				{
+					"key": "password",
+					"value": "test",
+					"type": "text",
+					"enabled": true,
+					"warning": ""
+				}
+			],
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1486762039504,
+			"name": "swipeat local signup",
+			"description": "",
+			"collectionId": "54d1404a-ccd3-b35c-1c35-325d3c4b47f6",
+			"responses": []
+		},
+		{
+			"id": "bb3894b0-75eb-f1d0-0a5b-71fa3d09c13c",
+			"headers": "",
+			"url": "https://sleepy-crag-97903.herokuapp.com/login",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1486809620413,
+			"name": "swipeat remote login",
+			"description": "",
+			"collectionId": "54d1404a-ccd3-b35c-1c35-325d3c4b47f6",
+			"responses": []
+		},
+		{
+			"id": "c8094428-8e39-b0c1-af46-5fbe2e9cec06",
+			"headers": "Authorization: Basic bWU6dGVzdA==\n",
+			"url": "https://sleepy-crag-97903.herokuapp.com/list/get",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "54d1404a-ccd3-b35c-1c35-325d3c4b47f6",
+			"data": [],
+			"dataMode": "params",
+			"name": "swipeat remote get list",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1486807846298,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}
