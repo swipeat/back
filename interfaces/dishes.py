@@ -7,6 +7,8 @@ import json
 from query import Dishes
 from query import Food2forkDish
 from flask import request
+from flask import session
+from db import user
 
 # /recipe/getset: to get the list of dishes
 @app.route("/recipe/getdishes", methods=["GET"])
@@ -19,6 +21,15 @@ def get_dishes():
 
     :return: JSON of dishes. For each "dish_id" it has "title" and "image_url".
     """
+
+    # # Session informations
+    username = session["username"]
+    password = session["password"]
+
+    # Check login
+    cond, msg = user.check_login(username, password)
+    if not cond:
+        return json.dumps({"response": -1, "message": msg})
 
     # Get the constraints from the GET request
     constraints = request.args.get("constraints").split(",")

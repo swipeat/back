@@ -15,4 +15,4 @@ if __name__ == "__main__":
     Ingredients.create()
 
     """ Launch the REST server """
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=8080)

@@ -113,14 +113,14 @@ def add_ingredient():
     return json.dumps({"response": 0, "message": "OK"})
 
 # /list/add_recipe : Add all ingredients of a recipe to the user's list
-@app.route("/list/add_recipes", methods=["POST"])
+@app.route("/list/add_recipes", methods=["GET"])
 def add_recipe():
     """
     Add all ingredients of recipes to the user's list.
     :return: A JSON list of ingredients added.
     """
 
-    # Session informations
+    # # Session informations
     username = session["username"]
     password = session["password"]
 
@@ -129,17 +129,20 @@ def add_recipe():
     if not cond:
         return json.dumps({"response": -1, "message": msg})
 
-    # Get the the meal Ids that were selected by user from the POST request
-    meal_ids = request.form["mealsids"].split(",")
+    # Get the the dish Ids that were selected by user from the POST request
+    # dish_ids = request.form["dishesids"].split(",")
 
-    # Create meal object for the specific API querying
-    ingredientobject = Food2forkIngredients(meal_ids)
+    # Get the the dish Ids that were selected by user from the request
+    dish_ids = request.args.get("dishesids").split(",")
 
-    # Static wrapper for meal objects
+    # Create dish object for the specific API querying
+    ingredientobject = Food2forkIngredients(dish_ids)
+
+    # Static wrapper for dish objects
     ingredient_selector = Ingredients.instance()
     ingredient_selector.set_query_object(ingredientobject)
 
-    # Get the meals given the number
+    # Get the dishes given the number
     returned_ingredients = ingredient_selector.get_ingredients()
 
     # If ok
@@ -149,4 +152,4 @@ def add_recipe():
             list.add_ingredient(username, ingredient)
         return json.dumps({"response": 0, "message": "Ok", "results": returned_ingredients["ingredients"]})
     else:
-        return json.dumps({"response": -1, "message": "Error: no meals were found"})
+        return json.dumps({"response": -1, "message": "Error: no dishes were found"})
