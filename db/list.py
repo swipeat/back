@@ -5,13 +5,13 @@
 
 import sqlite3
 
-def init():
-    conn = sqlite3.connect('swipeat.db')
-    c = conn.cursor()
-    c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='swipeat_lists'")
-    if len(c.fetchall()) == 0:
-        c.execute("CREATE TABLE swipeat_lists (username text, ingredient text)")
-        conn.commit()
+#def init():
+#    conn = sqlite3.connect('swipeat.db')
+#    c = conn.cursor()
+#    c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='swipeat_lists'")
+#    if len(c.fetchall()) == 0:
+#        c.execute("CREATE TABLE swipeat_lists (username text, ingredient text)")
+#        conn.commit()
 
 # Get the complete list of the ingredient
 def get_list(username):
